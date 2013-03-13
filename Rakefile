@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/rmg/feature_definitions"
   gem.license = "MIT"
   gem.summary = %Q{Simple and flexible feature definition}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{Simple and flexible feature toggle defintion}
   gem.email = "r.m.graham@gmail.com"
   gem.authors = ["Ryan Graham"]
   # dependencies defined in Gemfile
