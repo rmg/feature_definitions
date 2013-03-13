@@ -1,6 +1,31 @@
 = feature_definitions
 
-Description goes here.
+A minimal useful feature toggle mechanism.
+
+== Installation
+
+  gem 'feature_definitions'
+
+== Example
+
+Rails is *NOT* required, but this is how you would use this gem with Rails.
+
+app/model/features.rb:
+  class Features < FeatureDefinitions
+    define_feature :AWESOME, using: [:current_user] do |user|
+      user.is_awesome?
+    end
+  end
+
+app/controller/application_controller.rb:
+  class ApplicationController < ActionController::Base
+    before_filter { |controller| Features.context = controller }
+  end
+
+app/views/some/view.erb.html:
+  <% Features.AWESOME.enabled? %>
+    You have awesome enabled!
+  <% end %>
 
 == Contributing to feature_definitions
  
@@ -14,6 +39,5 @@ Description goes here.
 
 == Copyright
 
-Copyright (c) 2013 Ryan Graham. See LICENSE.txt for
-further details.
+Copyright (c) 2013 Ryan Graham. See LICENSE.txt for further details. (TL;DR: MIT license)
 
