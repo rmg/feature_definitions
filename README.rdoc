@@ -23,8 +23,11 @@ app/controller/application_controller.rb:
   end
 
 app/views/some/view.erb.html:
-  <% Features.AWESOME.enabled? %>
-    You have awesome enabled!
+  <% if Features.AWESOME.enabled? %>
+    You have the awesome feature enabled!
+  <% end %>
+  <% Features.AWESOME.enabled? do %>
+    You have awesome blocks enabled!
   <% end %>
 
 == Contributing to feature_definitions
