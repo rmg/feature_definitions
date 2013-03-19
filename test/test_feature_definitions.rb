@@ -21,4 +21,12 @@ class TestFeatureDefinitions < MiniTest::Unit::TestCase
     Features.context = OpenStruct.new(is_awesome?: false)
     refute Features.AWESOME.enabled?
   end
+  def test_feature_toggle_with_block
+    Features.context = OpenStruct.new(is_awesome?: true)
+    called = false
+    Features.AWESOME.enabled? do
+      called = true
+    end
+    assert called
+  end
 end
