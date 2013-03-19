@@ -12,14 +12,14 @@ Rails is *NOT* required, but this is how you would use this gem with Rails.
 
 app/model/features.rb:
   class Features < FeatureDefinitions
-    define_feature :AWESOME, using: [:current_user] do |user|
+    define_feature :AWESOME do |user|
       user.is_awesome?
     end
   end
 
 app/controller/application_controller.rb:
   class ApplicationController < ActionController::Base
-    before_filter { |controller| Features.context = controller }
+    before_filter { |controller| Features.context = controller.current_user }
   end
 
 app/views/some/view.erb.html:

@@ -1,8 +1,8 @@
 require 'helper'
 
 class Features < FeatureDefinitions
-  define_feature :AWESOME, using: [:is_awesome?] do |awesome|
-    awesome
+  define_feature :AWESOME do |context|
+    context.is_awesome?
   end
 end
 
