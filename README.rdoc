@@ -1,6 +1,6 @@
 = feature_definitions
 
-[![Build Status](https://secure.travis-ci.org/rmg/feature_definitions.png?branch=master)](http://travis-ci.org/rmg/feature_definitions)
+{<img src="https://travis-ci.org/rmg/feature_definitions.png?branch=master" alt="Build Status" />}[https://travis-ci.org/rmg/feature_definitions]
 
 A minimal useful feature toggle mechanism.
 
