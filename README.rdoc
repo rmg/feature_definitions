@@ -23,7 +23,7 @@ Thanks to Travis-CI, tested on:
 === Using constructor
 lib/features.rb:
   class Features < FeatureDefinitions
-    AWEOME = self.new {|flags| flags.is_awsome? }
+    AWESOME = self.new {|flags| flags.is_awesome? }
   end
 
 app/main.rb:
