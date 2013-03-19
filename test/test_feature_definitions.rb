@@ -35,21 +35,21 @@ class TestFeatureDefinitionsUsage < MiniTest::Unit::TestCase
     end
   end
   def test_feature_enabled
-    @feature_class.context = OpenStruct.new(is_awesome?: true)
+    @feature_class.context = OpenStruct.new(:is_awesome? => true)
     assert @feature_class.AWESOME.enabled?
   end
   def test_feature_disabled
-    @feature_class.context = OpenStruct.new(is_awesome?: false)
+    @feature_class.context = OpenStruct.new(:is_awesome? => false)
     refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggle
-    @feature_class.context = OpenStruct.new(is_awesome?: true)
+    @feature_class.context = OpenStruct.new(:is_awesome? => true)
     assert @feature_class.AWESOME.enabled?
-    @feature_class.context = OpenStruct.new(is_awesome?: false)
+    @feature_class.context = OpenStruct.new(:is_awesome? => false)
     refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggle_with_block
-    @feature_class.context = OpenStruct.new(is_awesome?: true)
+    @feature_class.context = OpenStruct.new(:is_awesome? => true)
     called = false
     @feature_class.AWESOME.enabled? do
       called = true
