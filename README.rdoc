@@ -8,6 +8,24 @@ A minimal useful feature toggle mechanism.
 
 == Example
 
+=== Using constructor
+lib/features.rb:
+  class Features < FeatureDefinitions
+    AWEOME = self.new {|flags| flags.is_awsome? }
+  end
+
+app/main.rb:
+  Features.context = args_to_flags
+
+app/elsewhere.rb
+  def some_method
+    Features.AWESOME.enabled? do
+      # do feature
+    end
+    # else noop
+  end
+
+=== Rails (and define_feature helper)
 Rails is *NOT* required, but this is how you would use this gem with Rails.
 
 app/model/features.rb:
