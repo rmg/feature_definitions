@@ -15,11 +15,11 @@ unless ENV['TRAVIS']
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-    gem.name = "lazy_const"
-    gem.homepage = "http://github.com/rmg/lazy_const"
+    gem.name = "feature_definitions"
+    gem.homepage = "http://github.com/rmg/feature_definitions"
     gem.license = "MIT"
-    gem.summary = %Q{A little Ruby gem for defining lazy evaluated constants.}
-    gem.description = %Q{Allows you to define lazy evaluated, constant-like instances of your class.}
+    gem.summary = %Q{Simple and flexible feature definition}
+    gem.description = %Q{Simple and flexible feature toggle defintion}
     gem.email = "r.m.graham@gmail.com"
     gem.authors = ["Ryan Graham"]
     # dependencies defined in Gemfile
@@ -31,7 +31,7 @@ unless ENV['TRAVIS']
     version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
     rdoc.rdoc_dir = 'rdoc'
-    rdoc.title = "lazy_const #{version}"
+    rdoc.title = "feature_definitions #{version}"
     rdoc.rdoc_files.include('README*')
     rdoc.rdoc_files.include('lib/**/*.rb')
   end
