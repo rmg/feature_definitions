@@ -12,6 +12,8 @@ class FeatureDefinitions
     @test_proc = proc
   end
 
+  @@context = nil
+
   def self.context=(context)
     @@context = context
   end
