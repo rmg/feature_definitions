@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "feature_definitions.gemspec",
+    "lazy_const.gemspec",
     "lib/feature_definitions.rb",
     "test/helper.rb",
     "test/test_feature_definitions.rb"
