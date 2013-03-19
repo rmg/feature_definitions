@@ -8,7 +8,10 @@ gem 'lazy_const'
 # Include everything needed to run rake, tests, features, etc.
 group :development do
   gem "minitest", ">= 0"
-  gem "rdoc", "~> 3.12"
   gem "bundler"
-  gem "jeweler", "~> 1.8.4"
+  gem 'rake'
+  unless ENV['TRAVIS']
+    gem "rdoc", "~> 3.12"
+    gem "jeweler", "~> 1.8.4"
+  end
 end
