@@ -87,3 +87,26 @@ class TestFeatureDefaultBlock < MiniTest::Unit::TestCase
     assert called
   end
 end
+
+class TestDeclarativeFeatures < MiniTest::Unit::TestCase
+  def setup
+    @feature_class = Class.new(FeatureDefinitions) do
+      define_feature(:ENABLED_FEATURE) { |c| true }
+      define_feature(:DISABLED_FEATURE) { |c| false }
+    end
+  end
+  def test_declarative_feature_enabled
+    called = false
+    @feature_class.ENABLED_FEATURE do
+      called = true
+    end
+    assert called
+  end
+  def test_declarative_feature_disabled
+    called = false
+    @feature_class.DISABLED_FEATURE do
+      called = true
+    end
+    refute called
+  end
+end
