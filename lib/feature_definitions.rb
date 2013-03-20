@@ -4,7 +4,7 @@ class FeatureDefinitions
   def self.define_feature(name, &feature_test_block)
     feature = new(&feature_test_block)
     meta_class = class << self; self end
-    meta_class.send(:define_method, name) do |&feature_impl_block|
+    meta_class.__send__(:define_method, name) do |&feature_impl_block|
       if feature_impl_block.nil?
         feature
       else
