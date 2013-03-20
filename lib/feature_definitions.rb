@@ -5,11 +5,10 @@ class FeatureDefinitions
     feature = new(&feature_test_block)
     meta_class = class << self; self end
     meta_class.__send__(:define_method, name) do |&feature_impl_block|
-      if feature_impl_block.nil?
-        feature
-      else
+      if block_given?
         feature.enabled?(&feature_impl_block)
       end
+      feature
     end
   end
 
@@ -35,7 +34,9 @@ class FeatureDefinitions
 
   def enabled?(&block)
     test_proc.call(context).tap do |verdict|
-      yield if verdict and block_given?
+      if verdict and block_given?
+        yield
+      end
     end
   end
 end
