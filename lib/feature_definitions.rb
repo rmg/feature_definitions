@@ -1,11 +1,16 @@
-require 'lazy_const'
-
 class FeatureDefinitions
-  extend LazyConst
   attr_reader :test_proc
 
-  def self.define_feature(name, &block)
-    lazy_const(name) { new(&block) }
+  def self.define_feature(name, &feature_test_block)
+    feature = new(&feature_test_block)
+    meta_class = class << self; self end
+    meta_class.send(:define_method, name) do |&feature_impl_block|
+      if feature_impl_block.nil?
+        feature
+      else
+        feature.enabled?(&feature_impl_block)
+      end
+    end
   end
 
   PASSTHROUGH = Proc.new { |arg| arg }
