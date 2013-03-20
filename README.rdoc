@@ -37,6 +37,12 @@ app/elsewhere.rb
     # else noop
   end
 
+  def some_other_method
+    Features.AWESOME do
+      # declarative form!
+    end
+  end
+
 === Rails (and define_feature helper)
 Rails is *NOT* required, but this is how you would use this gem with Rails.
 
@@ -59,6 +65,10 @@ app/views/some/view.erb.html:
   <% Features.AWESOME.enabled? do %>
     You have awesome blocks enabled!
   <% end %>
+  <% Features.AWESOME do %>
+    Declarative feature blocks!
+  <% end %>
+
 
 == Contributing to feature_definitions
  
