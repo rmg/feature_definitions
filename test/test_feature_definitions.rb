@@ -1,4 +1,5 @@
 require 'helper'
+require 'feature_definitions'
 
 class ConstFeatures < FeatureDefinitions
   ALWAYS_ENABLED_FEATURE = self.new { |context| true }
@@ -72,7 +73,7 @@ class TestFeatureDefaultBlock < MiniTest::Unit::TestCase
     @feature_class.context = false
     refute @feature_class.AWESOME.enabled?
   end
-  def test_feature_toggle
+  def test_feature_toggles
     @feature_class.context = true
     assert @feature_class.AWESOME.enabled?
     @feature_class.context = false
