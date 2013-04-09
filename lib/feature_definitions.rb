@@ -12,13 +12,13 @@ class FeatureDefinitions
     end
   end
 
-  PASSTHROUGH = Proc.new { |arg| arg }
+  IDENTITY = Proc.new { |arg| arg }
 
   def initialize(&block)
     if block_given?
       @test_proc = block.to_proc
     else
-      @test_proc = PASSTHROUGH
+      @test_proc = IDENTITY
     end
   end
 
