@@ -22,14 +22,12 @@ class FeatureDefinitions
     end
   end
 
-  @@context = nil
-
   def self.context=(context)
-    @@context = context
+    Thread.current[:FeatureDefinitionsTLS] = context
   end
 
   def context
-    @@context
+    Thread.current[:FeatureDefinitionsTLS] ||= nil
   end
 
   def enabled?(&block)
