@@ -27,7 +27,7 @@ class FeatureDefinitions
   end
 
   def context
-    Thread.current[:FeatureDefinitionsTLS] ||= nil
+    Thread.current[:FeatureDefinitionsTLS]
   end
 
   def enabled?(&block)
