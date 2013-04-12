@@ -89,30 +89,37 @@ class TestFeatureDefaultBlock < MiniTest::Unit::TestCase
   end
 end
 
-class TestFeatureEvalBlock < MiniTest::Unit::TestCase
+class ExampleContext
+  attr_accessor :value
   def some_instance_method
-    @value
+    value
   end
+end
+
+class AwesomeFeatures < FeatureDefinitions
+  define_feature :AWESOME do
+    some_instance_method() # 1.8 requires the () here
+  end
+end
+
+class TestFeatureEvalBlock < MiniTest::Unit::TestCase
   def setup
-    @feature_class = Class.new(FeatureDefinitions) do
-      define_feature :AWESOME do
-        some_instance_method() # 1.8 requires the () here
-      end
-    end
-    @feature_class.context = self
+    @feature_class = AwesomeFeatures
+    @context = ExampleContext.new
+    @feature_class.context = @context
   end
   def test_feature_enabled
-    @value = true
+    @context.value = true
     assert @feature_class.AWESOME.enabled?
   end
   def test_feature_disabled
-    @value = false
+    @context.value = false
     refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggling
-    @value = true
+    @context.value = true
     assert @feature_class.AWESOME.enabled?
-    @value = false
+    @context.value = false
     refute @feature_class.AWESOME.enabled?
   end
 end
