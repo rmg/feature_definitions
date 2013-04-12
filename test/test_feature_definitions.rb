@@ -96,27 +96,23 @@ class TestFeatureEvalBlock < MiniTest::Unit::TestCase
         some_instance_method
       end
     end
+    @feature_class.context = self
   end
-  def context(value)
-    Class.new do
-      @@value = value
-      def some_instance_method
-        @@value
-      end
-    end.new
+  def some_instance_method
+    @value
   end
   def test_feature_enabled
-    @feature_class.context = context(true)
+    @value = true
     assert @feature_class.AWESOME.enabled?
   end
   def test_feature_disabled
-    @feature_class.context = context(false)
+    @value = false
     refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggling
-    @feature_class.context = context(true)
+    @value = true
     assert @feature_class.AWESOME.enabled?
-    @feature_class.context = context(false)
+    @value = false
     refute @feature_class.AWESOME.enabled?
   end
 end
