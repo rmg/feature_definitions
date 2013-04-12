@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "feature_definitions"
-  s.version = "0.3.2"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ryan Graham"]
-  s.date = "2013-04-09"
+  s.date = "2013-04-12"
   s.description = "Simple and flexible feature toggle defintion"
   s.email = "r.m.graham@gmail.com"
   s.extra_rdoc_files = [
