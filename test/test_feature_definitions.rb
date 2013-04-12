@@ -90,16 +90,16 @@ class TestFeatureDefaultBlock < MiniTest::Unit::TestCase
 end
 
 class TestFeatureEvalBlock < MiniTest::Unit::TestCase
+  def some_instance_method
+    @value
+  end
   def setup
     @feature_class = Class.new(FeatureDefinitions) do
       define_feature :AWESOME do
-        some_instance_method
+        some_instance_method() # 1.8 requires the () here
       end
     end
     @feature_class.context = self
-  end
-  def some_instance_method
-    @value
   end
   def test_feature_enabled
     @value = true
