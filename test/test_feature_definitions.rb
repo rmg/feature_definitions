@@ -91,34 +91,25 @@ end
 
 class TestFeatureEvalBlock < MiniTest::Unit::TestCase
   def setup
-    @context = OpenStruct.new(:instance_method_of_context? => nil)
     @feature_class = Class.new(FeatureDefinitions) do
       define_feature :AWESOME do
-        instance_method_of_context?
+        some_instance_method
       end
     end
-    @feature_class.context = @context
   end
   def test_feature_enabled
-    @feature_class.context = @context
-    @context.stub :instance_method_of_context?, true do
-      assert @feature_class.AWESOME.enabled?
-    end
+    @feature_class.context = OpenStruct.new(:some_instance_method => true)
+    assert @feature_class.AWESOME.enabled?
   end
   def test_feature_disabled
-    @feature_class.context = @context
-    @context.stub :instance_method_of_context?, false do
-      refute @feature_class.AWESOME.enabled?
-    end
+    @feature_class.context = OpenStruct.new(:some_instance_method => false)
+    refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggling
-    @feature_class.context = @context
-    @context.stub :instance_method_of_context?, true do
-      assert @feature_class.AWESOME.enabled?
-    end
-    @context.stub :instance_method_of_context?, false do
-      refute @feature_class.AWESOME.enabled?
-    end
+    @feature_class.context = OpenStruct.new(:some_instance_method => true)
+    assert @feature_class.AWESOME.enabled?
+    @feature_class.context = OpenStruct.new(:some_instance_method => false)
+    refute @feature_class.AWESOME.enabled?
   end
 end
 
