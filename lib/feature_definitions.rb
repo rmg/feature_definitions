@@ -31,10 +31,18 @@ class FeatureDefinitions
   end
 
   def enabled?(&block)
-    test_proc.call(context).tap do |verdict|
+    eval_test_proc.tap do |verdict|
       if verdict and block_given?
         yield
       end
+    end
+  end
+
+  def eval_test_proc
+    if test_proc.arity == 0
+      context.instance_eval(&test_proc)
+    else
+      test_proc.call(context)
     end
   end
 end
