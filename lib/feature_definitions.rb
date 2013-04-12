@@ -40,7 +40,7 @@ class FeatureDefinitions
 
   def eval_test_proc
     if test_proc.arity == 0
-      context.instance_eval(&test_proc)
+      context.instance_exec(&test_proc)
     else
       test_proc.call(context)
     end
