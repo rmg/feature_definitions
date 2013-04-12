@@ -89,37 +89,27 @@ class TestFeatureDefaultBlock < MiniTest::Unit::TestCase
   end
 end
 
-class ExampleContext
-  attr_accessor :value
-  def some_instance_method
-    value
-  end
-end
-
-class AwesomeFeatures < FeatureDefinitions
-  define_feature :AWESOME do
-    some_instance_method() # 1.8 requires the () here
-  end
-end
-
 class TestFeatureEvalBlock < MiniTest::Unit::TestCase
   def setup
-    @feature_class = AwesomeFeatures
-    @context = ExampleContext.new
-    @feature_class.context = @context
+    @feature_class = Class.new(FeatureDefinitions) do
+      define_feature :AWESOME do
+        # 1.8 requires the self here :-(
+        self.some_instance_method
+      end
+    end
   end
   def test_feature_enabled
-    @context.value = true
+    @feature_class.context = OpenStruct.new(:some_instance_method => true)
     assert @feature_class.AWESOME.enabled?
   end
   def test_feature_disabled
-    @context.value = false
+    @feature_class.context = OpenStruct.new(:some_instance_method => false)
     refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggling
-    @context.value = true
+    @feature_class.context = OpenStruct.new(:some_instance_method => true)
     assert @feature_class.AWESOME.enabled?
-    @context.value = false
+    @feature_class.context = OpenStruct.new(:some_instance_method => false)
     refute @feature_class.AWESOME.enabled?
   end
 end
