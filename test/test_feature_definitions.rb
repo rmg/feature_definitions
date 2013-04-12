@@ -97,18 +97,26 @@ class TestFeatureEvalBlock < MiniTest::Unit::TestCase
       end
     end
   end
+  def context(value)
+    Class.new do
+      @@value = value
+      def some_instance_method
+        @@value
+      end
+    end.new
+  end
   def test_feature_enabled
-    @feature_class.context = OpenStruct.new(:some_instance_method => true)
+    @feature_class.context = context(true)
     assert @feature_class.AWESOME.enabled?
   end
   def test_feature_disabled
-    @feature_class.context = OpenStruct.new(:some_instance_method => false)
+    @feature_class.context = context(false)
     refute @feature_class.AWESOME.enabled?
   end
   def test_feature_toggling
-    @feature_class.context = OpenStruct.new(:some_instance_method => true)
+    @feature_class.context = context(true)
     assert @feature_class.AWESOME.enabled?
-    @feature_class.context = OpenStruct.new(:some_instance_method => false)
+    @feature_class.context = context(false)
     refute @feature_class.AWESOME.enabled?
   end
 end
