@@ -89,28 +89,30 @@ class TestFeatureDefaultBlock < MiniTest::Unit::TestCase
   end
 end
 
-class TestFeatureEvalBlock < MiniTest::Unit::TestCase
-  def setup
-    @feature_class = Class.new(FeatureDefinitions) do
-      define_feature :AWESOME do
-        # 1.8 requires the self here :-(
-        self.some_instance_method
+# 1.8 instance_eval makes me sad :-(
+if RUBY_VERSION.to_i > 1 or RUBY_VERSION.split('.')[1].to_i > 8
+  class TestFeatureEvalBlock < MiniTest::Unit::TestCase
+    def setup
+      @feature_class = Class.new(FeatureDefinitions) do
+        define_feature :AWESOME do
+          some_instance_method
+        end
       end
     end
-  end
-  def test_feature_enabled
-    @feature_class.context = OpenStruct.new(:some_instance_method => true)
-    assert @feature_class.AWESOME.enabled?
-  end
-  def test_feature_disabled
-    @feature_class.context = OpenStruct.new(:some_instance_method => false)
-    refute @feature_class.AWESOME.enabled?
-  end
-  def test_feature_toggling
-    @feature_class.context = OpenStruct.new(:some_instance_method => true)
-    assert @feature_class.AWESOME.enabled?
-    @feature_class.context = OpenStruct.new(:some_instance_method => false)
-    refute @feature_class.AWESOME.enabled?
+    def test_feature_enabled
+      @feature_class.context = OpenStruct.new(:some_instance_method => true)
+      assert @feature_class.AWESOME.enabled?
+    end
+    def test_feature_disabled
+      @feature_class.context = OpenStruct.new(:some_instance_method => false)
+      refute @feature_class.AWESOME.enabled?
+    end
+    def test_feature_toggling
+      @feature_class.context = OpenStruct.new(:some_instance_method => true)
+      assert @feature_class.AWESOME.enabled?
+      @feature_class.context = OpenStruct.new(:some_instance_method => false)
+      refute @feature_class.AWESOME.enabled?
+    end
   end
 end
 

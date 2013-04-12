@@ -5,14 +5,21 @@
 A minimal useful feature toggle mechanism.
 
 Thanks to Travis-CI, tested on:
-  - "1.8.7"
+  - "1.8.7"  ***
   - "1.9.2"
   - "1.9.3"
   - "2.0.0"
-  - jruby-18mode # JRuby in 1.8 mode
+  - jruby-18mode # JRuby in 1.8 mode  ***
   - jruby-19mode # JRuby in 1.9 mode
-  - rbx-18mode
+  - rbx-18mode  ***
   - rbx-19mode
+
+==== Note on 1.8
+
+I've given up trying to find a cross version way of using instance_eval/exec
+to give a nicer syntax to feature evaluation blocks, but it's just not
+working out. If you're using 1.8, you're block will just have to take the
+context as an argument.
 
 == Installation
 
@@ -24,6 +31,8 @@ Thanks to Travis-CI, tested on:
 lib/features.rb:
   class Features < FeatureDefinitions
     AWESOME = self.new {|flags| flags.is_awesome? }
+    # > 1.8 only, evaluated in context of Features.context
+    AWESOME = self.new { is_awesome? }
   end
 
 app/main.rb:
@@ -51,6 +60,10 @@ app/model/features.rb:
     define_feature :AWESOME do |user|
       user.is_awesome?
     end
+    # > 1.8 only, evaluated in context of Features.context
+    define_feature :AWESOMER do
+      is_awesome?
+    end
   end
 
 app/controller/application_controller.rb:
@@ -65,7 +78,7 @@ app/views/some/view.erb.html:
   <% Features.AWESOME.enabled? do %>
     You have awesome blocks enabled!
   <% end %>
-  <% Features.AWESOME do %>
+  <% Features.AWESOMER do %>
     Declarative feature blocks!
   <% end %>
 
